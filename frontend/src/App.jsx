@@ -76,7 +76,7 @@ function App() {
     try {
     const token = localStorage.getItem("token");
 
-    const res = await axios.get("http://localhost:5000/expenses", {
+    const res = await axios.get("https://student-expense-tracker-2-tgl7.onrender.com/expenses", {
       headers: {
         Authorization: token,
       },
@@ -114,12 +114,12 @@ function App() {
       const token = localStorage.getItem("token");
 
       if (editId) {
-        await axios.put(`http://localhost:5000/update/${editId}`, payload, {
+        await axios.put(`https://student-expense-tracker-2-tgl7.onrender.com/${editId}`, payload, {
           headers: { Authorization: token },
         });
        setEditId(null);
       } else {
-        await axios.post("http://localhost:5000/add", payload, {
+        await axios.post("https://student-expense-tracker-2-tgl7.onrender.com/add", payload, {
           headers: { Authorization: token },
         });
       }
@@ -143,7 +143,7 @@ function App() {
   const deleteExpense = async (id) => {
     const token = localStorage.getItem("token");
 
-    await axios.delete(`http://localhost:5000/delete/${id}`, {
+    await axios.delete(`https://student-expense-tracker-2-tgl7.onrender.com/delete/${id}`, {
       headers: { Authorization: token },
     });
 
@@ -152,7 +152,7 @@ function App() {
 
   const login = async () => {
   try {
-    const res = await axios.post("http://localhost:5000/login", {
+    const res = await axios.post("https://student-expense-tracker-2-tgl7.onrender.com/login", {
       email,
       password,
     });
@@ -167,7 +167,7 @@ function App() {
 // 🔽 ADD SIGNUP FUNCTION HERE
 const signup = async () => {
   try {
-    await axios.post("http://localhost:5000/signup", {
+    await axios.post("https://student-expense-tracker-2-tgl7.onrender.com/signup", {
       email,
       password,
     });
