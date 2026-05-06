@@ -1,36 +1,36 @@
-# 💰 Student Expense Tracker
+# Student Expense Tracker
 
 A modern full-stack MERN web application designed to help students efficiently manage and analyze their daily expenses.  
 The application provides secure authentication, personalized expense tracking, detailed reports, PDF export functionality, dark/light mode support, and interactive visual analytics.
 
 ---
 
-# 🚀 Live Demo
+# Live Demo
 
 🔗 https://student-expense-tracker-h3sx.vercel.app
 
 ---
 
-# 🎥 Project Demo
+# Project Demo
 
 📹 Complete working demo of the application has been included in the repository.
 
 ---
 
-# ✨ Features
+# Features
 
-## 🔐 Authentication System
+## Authentication System
 - User Signup & Login
 - Secure user-based data handling
 - Separate expense data for every account
 
-## 💸 Expense Management
+## Expense Management
 - Add Expenses
 - Edit Existing Expenses
 - Delete Expenses
 - Categorize Expenses
 
-## 📊 Analytics Dashboard
+## Analytics Dashboard
 - Interactive Expense Dashboard
 - Pie Chart Visualization
 - Monthly Expense Analysis
@@ -38,25 +38,25 @@ The application provides secure authentication, personalized expense tracking, d
 - Top Spending Category Detection
 - Total Expense Tracking
 
-## 📄 Reports & Export
+## Reports & Export
 - Daily Expense Reports
 - Monthly Expense Reports
 - Export Reports as PDF
 
-## 🎨 UI/UX Features
+## UI/UX Features
 - Dark Mode / Light Mode Toggle
 - Responsive Design
 - Modern Dashboard Interface
 - Smooth User Experience
 
-## 🌐 Deployment
+## Deployment
 - Fully Deployed Online
 - Real-Time Database Integration
 - Persistent User Data Storage
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 ## Frontend
 - React.js
@@ -79,39 +79,39 @@ The application provides secure authentication, personalized expense tracking, d
 
 ---
 
-# 📸 Screenshots
+# Screenshots
 
-## 🔑 Login Page
+## Login Page
 
 ![Login Page](./login.png)
 
 ---
 
-## 📝 Signup Page
+## Signup Page
 
 ![Signup Page](./signup.png)
 
 ---
 
-## 📊 Main Dashboard
+## Main Dashboard
 
 ![Dashboard](./dashboard1.png)
 
 ---
 
-## 💳 Expense Management Section
+## Expense Management Section
 
 ![Expense Section](./dashboard2.png)
 
 ---
 
-## 📅 Daily Expense Report
+## Daily Expense Report
 
 ![Daily Report](./daily%20report.png)
 
 ---
 
-## 📆 Monthly Expense Report
+## Monthly Expense Report
 
 ![Monthly Report](./monthly%20report.png)
 
