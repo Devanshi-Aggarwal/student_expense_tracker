@@ -16,7 +16,6 @@ import {
 } from "recharts";
 
 function App() {
-  // 🔽 ONLY NEW STATES ADDED HERE
   const [isSignup, setIsSignup] = useState(false);
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
@@ -38,10 +37,8 @@ function App() {
     return localStorage.getItem("theme") === "dark";
   });
 
-  // ✅ NEW: loading state
   const [loading, setLoading] = useState(false);
 
-  // ✏️ EDIT START
   const startEdit = (exp) => {
     setEditId(exp._id);
     setTitle(exp.title);
@@ -50,7 +47,6 @@ function App() {
     setDate(exp.date);
   };
 
-  // 🌙 THEME
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (!savedTheme) {
@@ -63,7 +59,6 @@ function App() {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  // 🔽 ADD AUTO LOGIN HERE
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -71,7 +66,6 @@ function App() {
     }
   }, []);
 
-  // 📡 FETCH
   const fetchExpenses = async () => {
     try {
     const token = localStorage.getItem("token");
@@ -94,7 +88,6 @@ function App() {
     }
   }, [auth]);
 
-  // ➕ ADD / ✏️ UPDATE
   const addExpense = async () => {
     if (!title || !amount || !date) {
       alert("Fill all fields");
@@ -109,7 +102,7 @@ function App() {
     };
 
     try {
-      setLoading(true); // ✅ start loading
+      setLoading(true); 
 
       const token = localStorage.getItem("token");
 
@@ -124,7 +117,7 @@ function App() {
         });
       }
 
-      alert("✅ Expense added!");
+      alert("Expense added!");
 
       setTitle("");
       setAmount("");
@@ -132,14 +125,13 @@ function App() {
 
       fetchExpenses();
     } catch (err) {
-      console.error("❌ ERROR:", err);
+      console.error("ERROR:", err);
       alert("Something went wrong");
     } finally {
-      setLoading(false); // ✅ stop loading
+      setLoading(false); 
     }
   };
 
-  // ❌ DELETE
   const deleteExpense = async (id) => {
     const token = localStorage.getItem("token");
 
@@ -164,7 +156,6 @@ function App() {
   }
 };
 
-// 🔽 ADD SIGNUP FUNCTION HERE
 const signup = async () => {
   try {
     await axios.post("https://student-expense-tracker-2-tgl7.onrender.com/signup", {
@@ -179,8 +170,6 @@ const signup = async () => {
   }
 };
 
-
-  // 📊 CALCULATIONS
   const total = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
 
   const filteredExpenses =
@@ -215,7 +204,6 @@ const signup = async () => {
     }, {})
   ).sort((a, b) => a.order - b.order);
 
-  // 🔽 ONLY NEW CALCULATION ADDED HERE
   const dailyTotal = reportDate
     ? expenses
       .filter((e) => e.date === reportDate)
@@ -231,12 +219,10 @@ const signup = async () => {
         .reduce((sum, e) => sum + Number(e.amount), 0)
     : 0;
 
-  // 🔽 NEW: daily expenses list
   const dailyExpenses = reportDate
     ? expenses.filter((e) => e.date === reportDate)
     : [];
 
-  // 🔽 NEW: monthly expenses list
   const monthlyExpenses = reportMonth !== ""
     ? expenses.filter((e) => {
         const d = new Date(e.date);
@@ -244,7 +230,6 @@ const signup = async () => {
       })
     : [];
 
-  // 🔽 NEW: monthly insights
   const monthlyCategoryData = Object.values(
     monthlyExpenses.reduce((acc, e) => {
       if (!acc[e.category]) acc[e.category] = { name: e.category, value: 0 };
@@ -270,7 +255,6 @@ const signup = async () => {
 
   const COLORS = ["#6366f1", "#22c55e", "#f59e0b", "#ef4444"];
 
-  // 🔽 ADD THIS FUNCTION HERE
   const exportPDF = async () => {
     const input = document.getElementById("report-content");
 
@@ -296,7 +280,7 @@ if (!auth) {
     <div className="min-h-screen flex flex-col justify-center items-center gap-4">
 
       <h2 className="text-2xl font-bold">
-        {isSignup ? "Signup 📝" : "Login 🔐"}
+        {isSignup ? "Signup " : "Login "}
       </h2>
 
       <input
@@ -443,7 +427,7 @@ if (!auth) {
                 className="w-full p-3 rounded-xl bg-white text-black dark:bg-gray-700 dark:text-white"
               />
 
-              {/* ✅ NEW CATEGORY DROPDOWN */}
+              {/* NEW CATEGORY DROPDOWN */}
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -478,7 +462,7 @@ if (!auth) {
             {/* LIST */}
             <div className="max-w-2xl mx-auto space-y-4">
               
-              {/* ✅ EMPTY STATE */}
+              {/* EMPTY STATE */}
               {filteredExpenses.length === 0 && (
                 <p className="text-center">No expenses yet</p>
               )}
@@ -592,7 +576,7 @@ if (!auth) {
                 </div>
               )}
 
-              {/* ✅ ADD MONTHLY UI HERE (JUST BELOW DAILY) */}
+              {/* ADD MONTHLY UI HERE (JUST BELOW DAILY) */}
               {reportType === "monthly" && (
                 <div className="mt-8 space-y-4">
                   <select
