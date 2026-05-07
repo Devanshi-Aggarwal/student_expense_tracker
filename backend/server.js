@@ -1,3 +1,4 @@
+require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./User");
@@ -19,9 +20,7 @@ app.use((req, res, next) => {
 
 // 🔥 MongoDB connection
 mongoose
-  .connect(
-    "mongodb+srv://dev:dev1234@cluster0.dqbvyax.mongodb.net/expenseDB?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Error:", err));
 
@@ -49,7 +48,7 @@ const authMiddleware = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.id;
     next();
   } catch (err) {
@@ -170,7 +169,7 @@ app.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { id: user._id },
-      "secret123",
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
