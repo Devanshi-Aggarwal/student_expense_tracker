@@ -8,23 +8,19 @@ const cors = require("cors");
 
 const app = express();
 
-// 🔥 Middlewares
 app.use(cors());
 app.use(express.json());
 
-// 🔥 Disable caching (fix 304 issue)
 app.use((req, res, next) => {
   res.set("Cache-Control", "no-store");
   next();
 });
 
-// 🔥 MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ MongoDB Error:", err));
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("MongoDB Error:", err));
 
-// 🔥 Schema
 const expenseSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
@@ -39,7 +35,6 @@ const expenseSchema = new mongoose.Schema(
 
 const Expense = mongoose.model("Expense", expenseSchema);
 
-// 🔐 ADD AUTH MIDDLEWARE RIGHT HERE 👇
 const authMiddleware = (req, res, next) => {
   const token = req.headers.authorization;
 
@@ -56,35 +51,31 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-
-// ➕ Add expense
 app.post("/add", authMiddleware, async (req, res) => {
   try {
     const newExpense = new Expense({
       ...req.body,
-      userId: req.userId, // 🔥 attach logged-in user
+      userId: req.userId, 
     });
 
     await newExpense.save();
     res.status(201).json(newExpense);
   } catch (err) {
-    console.error("❌ Add Error:", err);
+    console.error("Add Error:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// 📥 Get all expenses
 app.get("/expenses", authMiddleware, async (req, res) => {
   try {
     const data = await Expense.find({ userId: req.userId }).sort({ createdAt: -1 });
     res.status(200).json(data);
   } catch (err) {
-    console.error("❌ Fetch Error:", err);
+    console.error("Fetch Error:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// ✏️ UPDATE expense (🔥 REQUIRED FOR EDIT FEATURE)
 app.put("/update/:id", authMiddleware, async (req, res) => {
   try {
     const updated = await Expense.findOneAndUpdate(
@@ -99,12 +90,11 @@ app.put("/update/:id", authMiddleware, async (req, res) => {
 
     res.status(200).json(updated);
   } catch (err) {
-    console.error("❌ Update Error:", err);
+    console.error("Update Error:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// ❌ Delete expense
 app.delete("/delete/:id", authMiddleware, async (req, res) => {
   try {
     const deleted = await Expense.findOneAndDelete({
@@ -118,14 +108,11 @@ app.delete("/delete/:id", authMiddleware, async (req, res) => {
 
     res.status(200).json({ message: "Deleted successfully" });
   } catch (err) {
-    console.error("❌ Delete Error:", err);
+    console.error("Delete Error:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// 🔐 ================= AUTH ROUTES =================
-
-// 🔐 SIGNUP
 app.post("/signup", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -152,7 +139,6 @@ app.post("/signup", async (req, res) => {
 });
 
 
-// 🔐 LOGIN
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -181,5 +167,4 @@ app.post("/login", async (req, res) => {
 });
 
 
-// 🚀 Start server
-app.listen(5000, () => console.log("🚀 Server running on port 5000"));
+app.listen(5000, () => console.log("Server running on port 5000"));
